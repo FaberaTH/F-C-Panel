@@ -17,3 +17,10 @@ Desktop.ini
 
 # VS Code
 .vscode/*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Local runtime data
+software/bridge-msfs/profiles.json

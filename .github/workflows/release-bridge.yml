@@ -1,0 +1,53 @@
+name: Build Bridge Executable
+
+on:
+  push:
+    tags:
+      - 'bridge-v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: software/bridge-msfs
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pyinstaller
+
+      - name: Build executable
+        run: |
+          $iconPath = "../../assets/branding/app.ico"
+          if (Test-Path $iconPath) {
+            pyinstaller --noconfirm --onefile --windowed --name PainelFS2024-Configurator --icon $iconPath app.py
+          } else {
+            pyinstaller --noconfirm --onefile --windowed --name PainelFS2024-Configurator app.py
+          }
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PainelFS2024-Configurator-windows
+          path: software/bridge-msfs/dist/PainelFS2024-Configurator.exe
+
+      - name: Publish GitHub Release Asset
+        if: startsWith(github.ref, 'refs/tags/bridge-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: software/bridge-msfs/dist/PainelFS2024-Configurator.exe
+          generate_release_notes: true

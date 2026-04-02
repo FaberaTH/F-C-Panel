@@ -33,6 +33,14 @@ Projeto de painel fisico para Microsoft Flight Simulator 2024 com:
 4. Abra `joy.cpl` no Windows para validar os botoes HID.
 5. Ligue o LCD em 5V/GND/SDA/SCL.
 
+## Sketch correto para upload no Arduino IDE
+
+Use sempre este arquivo para a versao mais atual do firmware:
+
+- `firmware/arduino/PainelFS2024/PainelFS2024.ino`
+
+Nao use o arquivo legado em `archive/legacy/`.
+
 ## Hardware e pinagem (Leonardo)
 
 Observacao importante:
@@ -83,6 +91,13 @@ Detalhamento completo em `docs/GUIA_COMPLETO_PAINEL.txt`.
 ## Publicacao no GitHub
 
 Texto sugerido para About e topics em `docs/GITHUB_PUBLICACAO.md`.
+
+Distribuicao do software opcional em outros computadores:
+
+- guia em `software/bridge-msfs/INSTALACAO_WINDOWS.md`
+- build de executavel em `software/bridge-msfs/build_exe.bat`
+- build de instalador em `software/bridge-msfs/build_installer.bat`
+- release automatica em `.github/workflows/release-bridge.yml`
 
 ## Roadmap
 
